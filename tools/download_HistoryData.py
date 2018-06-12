@@ -42,7 +42,10 @@ class HistoryData:
         url = self.API.format(symbol=self.symbol, start_time=self.start_time, end_time=self.end_time)
         coin_info = pd.read_html(url)[0]
         coin_info = coin_info.assign(Date=pd.to_datetime(coin_info['Date']))
-        coin_info.loc[coin_info['Volume'] == '-', 'Volume'] = 0
+        try:
+            coin_info.loc[coin_info['Volume'] == '-', 'Volume'] = 0
+        except TypeError:
+            pass
         coin_info['Volume'] = coin_info['Volume'].astype('int64')
         self.data = coin_info[::-1]
 
