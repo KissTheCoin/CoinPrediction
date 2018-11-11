@@ -1,5 +1,5 @@
-keras
-tensorflow
-matplotlib
-pandas
 numpy
+pandas
+Keras
+matplotlib
+scikit_learn

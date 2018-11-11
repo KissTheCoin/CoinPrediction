@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-DATA_PATH = r'F:\project\Coin\CoinPrediction\data\eos-20130428-20180612.csv'
+DATA_PATH = r'G:\project\Coin\CoinPrediction\data\eos-20130428-20180613.csv'
 RANDOM_SEED = 188
 
 if __name__ == '__main__':
@@ -27,7 +27,7 @@ if __name__ == '__main__':
     print(test_y.shape)
 
     # 模型训练
-    model = LSTM.build_model(inputs=train_x, output_size=1, LSTM_units=20, loss='mean_squared_error')
+    model = LSTM.build_model(inputs=train_x, output_size=7, LSTM_units=20, loss='mean_squared_error')
     history = model.fit(train_x, train_y, batch_size=32, epochs=200, verbose=1, shuffle=True)
 
     # loss可视化
@@ -42,8 +42,8 @@ if __name__ == '__main__':
     h = model.predict(test_x)
     h = h.reshape(len(h), -1)
     dat = np.concatenate((test_y, h), axis=1)
-    df = pd.DataFrame(dat, columns=['actual', 'prediction'])
+    df = pd.DataFrame(dat)
     df.to_csv('prediction.csv', index=False)
-    plt.plot(h, color='blue', label='y_test')
-    plt.plot(test_y, color='red', label='prediction')
+    plt.plot(np.mean(h, axis=1), color='blue', label='y_test')
+    plt.plot(test_y[:, 1], color='red', label='prediction')
     plt.show()

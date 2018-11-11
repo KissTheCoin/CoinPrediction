@@ -92,13 +92,13 @@ class HistoryData:
         if self.train is None or self.test is None:
             self.split()
         # 每一个数据为[window_len, features]
-        for i in range(len(self.train) - window_len - 1):
+        for i in range(len(self.train) - window_len - 7):
             train_x.append(np.array(self.train[i:(i + window_len)][x_columns]))
-            train_y.append(np.array(self.train[i + window_len + 1:i + window_len + 2][y_columns])[0])
+            train_y.append(np.array(self.train[i + window_len + 1:i + window_len + 8][y_columns]).reshape(-1))
 
-        for i in range(len(self.test) - window_len - 1):
+        for i in range(len(self.test) - window_len - 7):
             test_x.append(np.array(self.test[i:(i + window_len)][x_columns]))
-            test_y.append(np.array(self.test[i + window_len + 1:i + window_len + 2][y_columns])[0])
+            test_y.append(np.array(self.test[i + window_len + 1:i + window_len + 8][y_columns]).reshape(-1))
 
         if flatten:
             return np.array(train_x).astype(np.float32).reshape((len(train_x), -1)), np.array(train_y).astype(

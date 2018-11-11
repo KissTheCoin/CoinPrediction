@@ -29,7 +29,7 @@ def build_model(inputs, output_size, LSTM_units, activ_func='linear', dropout=0.
     model.add(layers.Dense(units=100, kernel_initializer='normal', activation='relu'))
     model.add(layers.Activation(activ_func))
     model.add(layers.Dropout(dropout))
-    model.add(layers.Dense(1, kernel_initializer='normal'))
+    model.add(layers.Dense(output_size, kernel_initializer='normal'))
     model.compile(optimizer=optimizer, loss=loss)
     return model
 

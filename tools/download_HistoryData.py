@@ -68,6 +68,6 @@ class HistoryData:
 
 
 if __name__ == '__main__':
-    test = HistoryData('bitcoin')
+    test = HistoryData('eos')
     test.get_data()
     test.to_csv()
